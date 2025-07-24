@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AndroidBasicApp1</string>
+    <string name="salam">Salam Hindusthan!!!</string>
+    <string name="email_input" />
 </resources>
