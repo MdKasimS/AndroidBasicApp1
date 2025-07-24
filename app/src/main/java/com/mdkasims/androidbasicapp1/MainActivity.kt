@@ -1,51 +1,52 @@
 package com.mdkasims.androidbasicapp1
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 
 class MainActivity : AppCompatActivity() {
+
+    var emails = mutableListOf<String>();
+    var passwords = mutableListOf<String>();
+
+    private lateinit var signIn: TextView
+    private lateinit var email: EditText
+    private lateinit var pwd: EditText
+    private lateinit var loginBtn: Button
+    private lateinit var signUp: TextView
+    private lateinit var forgotPassword: TextView
+    private lateinit var userName: EditText
+    private lateinit var verifyPassword: EditText
+
+    private fun initViews() {
+        signIn = findViewById(R.id.txtSignIn)
+        email = findViewById(R.id.editEmail)
+        pwd = findViewById(R.id.editPassword)
+        loginBtn = findViewById(R.id.btnLoginSignUp)
+        signUp = findViewById(R.id.txtSignUp)
+        forgotPassword = findViewById(R.id.txtForgotPwd)
+        userName = findViewById(R.id.editUserName)
+        verifyPassword = findViewById(R.id.editVerifyPassword)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
 
-        val signIn = findViewById<TextView>(R.id.txtSignIn)
-        val input = findViewById<EditText>(R.id.editEmail)
-        val pwd = findViewById<EditText>(R.id.editPassword)
-        val loginBtn = findViewById<Button>(R.id.btnLoginSignUp)
-        val signUp = findViewById<TextView>(R.id.txtSignUp)
-        val forgotPassword = findViewById<TextView>(R.id.txtForgotPwd)
-        val userName = findViewById<EditText>(R.id.editUserName)
-        val verifyPassword = findViewById<EditText>(R.id.editVerifyPassword)
+        initViews()
 
         signUp.setOnClickListener {
-            println("Sign Up was clicked")
-            userName.isVisible = true
-            verifyPassword.isVisible = true
-            signIn.isVisible = true
-
-            forgotPassword.isVisible = false
-            signUp.isVisible = false
-            loginBtn.text = "Sign Up"
+            toggleSignUp()
         }
 
         signIn.setOnClickListener {
-            println("Sign Up was clicked")
-            userName.isVisible = false
-            verifyPassword.isVisible = false
-            signIn.isVisible = false
-
-            forgotPassword.isVisible = true
-            signUp.isVisible = true
-            loginBtn.text = "Sign In"
-
+            toggleSignIn()
         }
 
         forgotPassword.setOnClickListener {
@@ -55,9 +56,80 @@ class MainActivity : AppCompatActivity() {
         }
 
         loginBtn.setOnClickListener {
-            val enteredEmail = input.text.toString()
+            val enteredEmail = email.text.toString()
             println(enteredEmail)
-            println()
+            if(loginBtn.text.toString().equals("Login"))
+            {
+                println("I will perform Login!")
+                performSignIn()
+            }
+            else
+            {
+                println("I will perform Sign Up")
+                performSignUp()
+            }
         }
     }
+
+    fun performSignUp()
+    {
+        emails.add(email.text.toString())
+        passwords.add(pwd.text.toString())
+
+        Toast.makeText(this@MainActivity
+                        ,"Signed Up Successfully"
+                        ,Toast.LENGTH_SHORT).show()
+
+        toggleSignIn()
+    }
+
+    fun performSignIn()
+    {
+        var isAuthenticated = false
+
+        isAuthenticated = emails.contains(email.text.toString()) && passwords.contains(pwd.text.toString())
+        if(isAuthenticated)
+        {
+            Toast.makeText(this@MainActivity
+                ,"Signed In Successfully"
+                ,Toast.LENGTH_SHORT).show()
+
+            var intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+//            toggleSignIn()
+        }
+        else
+        {
+            Toast.makeText(this@MainActivity
+                ,"Invalid Credentials"
+                ,Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    fun toggleSignUp()
+    {
+        println("Sign Up was clicked")
+        userName.isVisible = true
+        verifyPassword.isVisible = true
+        signIn.isVisible = true
+
+        forgotPassword.isVisible = false
+        signUp.isVisible = false
+        loginBtn.text = "Sign Up"
+    }
+
+    fun toggleSignIn()
+    {
+        println("Sign In was clicked")
+        userName.isVisible = false
+        verifyPassword.isVisible = false
+        signIn.isVisible = false
+
+        forgotPassword.isVisible = true
+        signUp.isVisible = true
+        loginBtn.text = "Login"
+    }
+
+
 }
