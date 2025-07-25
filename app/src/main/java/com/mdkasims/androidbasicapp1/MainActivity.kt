@@ -16,14 +16,14 @@ class MainActivity : AppCompatActivity() {
     var emails = mutableListOf<String>();
     var passwords = mutableListOf<String>();
 
-    private lateinit var signIn: TextView
-    private lateinit var email: EditText
-    private lateinit var pwd: EditText
-    private lateinit var loginBtn: Button
-    private lateinit var signUp: TextView
-    private lateinit var forgotPassword: TextView
-    private lateinit var userName: EditText
-    private lateinit var verifyPassword: EditText
+//    private lateinit var signIn: TextView
+//    private lateinit var email: EditText
+//    private lateinit var pwd: EditText
+//    private lateinit var loginBtn: Button
+//    private lateinit var signUp: TextView
+//    private lateinit var forgotPassword: TextView
+//    private lateinit var userName: EditText
+//    private lateinit var verifyPassword: EditText
 
 //    private fun initViews() {
 //        signIn = findViewById(R.id.txtSignIn)
@@ -40,14 +40,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 //        var binding = ActivityMainBinding.inflate(layoutInflater)
-
         var binding = ActivityHomeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
 //        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
 //        initViews()
-
+//
 //        signUp.setOnClickListener {
 //            toggleSignUp()
 //        }
@@ -58,7 +57,6 @@ class MainActivity : AppCompatActivity() {
 //
 //        forgotPassword.setOnClickListener {
 //            println("Forgot Password was clicked")
-//
 //
 //        }
 //
@@ -137,6 +135,5 @@ class MainActivity : AppCompatActivity() {
 //        signUp.isVisible = true
 //        loginBtn.text = "Login"
 //    }
-//
 
 }
